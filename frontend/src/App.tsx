@@ -3,14 +3,8 @@ import './App.css';
 
 class App extends React.Component {
 
-
   constructor(props: any) {
     super(props);
-    this.state = {
-      value: '',
-      playerName: ''
-    };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,7 +22,6 @@ class App extends React.Component {
       })
       .then(json => {
         console.log = (json)
-        this.setState({ playerName: json[0] })
       })
   }
 

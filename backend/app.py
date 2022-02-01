@@ -2,6 +2,7 @@ from flask import Flask
 from flask_mail import Mail,  Message
 from flask_cors import CORS
 from flask import request
+from slack_bolt import App
 
 app = Flask(__name__, "/../frontend/build")
 
@@ -14,7 +15,6 @@ app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
 CORS(app)
 
-
 @app.route('/submit/')
 def submit():
 
@@ -23,17 +23,21 @@ def submit():
     email = request.args.get('email')
     fsc = request.args.get('sc')
     teamSize = request.args.get('team')
-    print(name)
-    print(email)
-    print(fsc)
-    print(teamSize)
     
-    # send info to slack
-
-    # send email to the person
-    msg = Message('Hello from the other side!', sender='peter@mailtrap.io',
-                  recipients=['rizwankassamali1@gmail.com'])
-    msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
-    mail.send(msg)
+    if (str(name) != "None"):
+        print(name)
+        print(email)
+        print(fsc)
+        print(teamSize)
+        
+        # send info to slack
+            # https://api.slack.com/messaging/sending
+            # cant do slack API, becuase I need a workspace for the hook.
     
-    return {'hello': 'wofgdfgrld'}
+        # send email to the person
+        msg = Message('Thank you for your interest', sender=email,
+                    recipients=['rizwankassamali1@gmail.com'])
+        msg.body = "Hi, Thank you for your interest in CodeBox."
+        mail.send(msg)
+    
+    return {'hello': 'TestBox'}
